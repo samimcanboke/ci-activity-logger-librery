@@ -1,21 +1,21 @@
 # Codeigniter Activity Log Library
+# Codeigniter Kullanıcı Log Sistemi
 
-[![N|CodeLab7](https://avatars0.githubusercontent.com/u/39191324?s=200&v=4)](https://codelab7.com)
+Etkinlik Günlüğü, bir web sitesindeki etkinliği kaydetmek ve sonuçları raporlama amacıyla almak için kullanılan bir Codeigniter kütüphanesidir.
 
-Activity Log is a Codeigniter library used to record activity on a website and to fetch the results for reporting purposes. 
 
-  - Is easy to Use
-  - Simple syntax for adding and fetching records
-  - Standalone library for use on any kind of website
+  - Kullanımı kolaydır
+  - Kayıt eklemek ve getirmek için basit sözdizimi
+  - Her tür web sitesinde kullanım için bağımsız kütüphane
 
-### Installation
+### Yükleme
 
-Logger requires [Codeigniter](https://codeigniter.com) version 3 to run.
+Logger çalışmak için [Codeigniter](https://codeigniter.com) versiyon 3 gerektirir.
 
-- Copy library (Logger.php) into your `/application/library` folder.
-- Import logger.sql into your database (or manually create the table).
+- Kütüphaneyi (Logger.php)  `/application/library` klasörüne kopyalayın.
+- logger.sql i mysql üzerinde çalıştırınız. (yada tablonuzu kendiniz oluşturunuz.).
 
-To manually create the table run the following command in your MySql command prompt:
+Kendiniz oluşturmak için aşağıdaki kodları sql bölümüne yapıştırınız:
 
 ```sql
 CREATE TABLE `logger` (  `id` bigint(20) NOT NULL AUTO_INCREMENT,  
@@ -29,11 +29,11 @@ CREATE TABLE `logger` (  `id` bigint(20) NOT NULL AUTO_INCREMENT,
 ALTER TABLE `logger`  ADD PRIMARY KEY (`id`);
 ```
 
-You can change the field names in the library by altering the following lines in Logger.php
+Aşağıdaki satırları değiştirerek kütüphanedeki(Logger.php) alan adlarını değiştirebilirsiniz.
 
 ```php
 private $table_fields = array(
-    'id'         => 'id', //Value will be Actual table field
+    'id'         => 'id', //Değer Gerçek tablo alanı olacak
     'created_on' => 'created_on',
     'created_by' => 'created_by',
     'type'       => 'type',
@@ -43,45 +43,31 @@ private $table_fields = array(
   );
 ```
 
-### Loading
-To load the logger library add the following
+### Çağırma
+Logger kütüphanesini çağırmak için aşağıdakileri controller'ınıza ekleyin.
 
 ```php
 $this->load->library('logger');
 ```
 
-### Use 
-**Log Activity**
+### Kullanımı 
+**Günlük Etkinlikleri**
 ```php
 $this->logger
-     ->user(1) //Set UserID, who created this  Action
-     ->type('post') //Entry type like, Post, Page, Entry
-     ->id(1) //Entry ID
-     ->token('delete') //Token identify Action
-     ->log(); //Add Database Entry
+     ->user(1) //Bu Eylemi oluşturan UserID'yi ayarla
+     ->type('post') //Yazı, Sayfa, Giriş gibi giriş türü
+     ->id(1) //İçerik ID'si
+     ->token('delete') //Belirteç Tanımlama İşlemi
+     ->log(); //Database'e yazma kısmı
 ```
 
-**Get Entry**
+**İçerik Getirme**
 ```php
 $this->logger
-     ->user(1) //Add Only If you want user specific Entry
-     ->type('post') //Add Only If you want type specific Entry
-     ->id(1) //Add Only If you want typeID specific Entry
-     ->token('delete') //Add Only If you want token specific Entry
-     ->get(); //Get All Entry
+     ->user(1) //Yalnızca Belirli Kullanıcıya Özel Girişleri istiyorsanız Ekleyin.
+     ->type('post') //Yalnızca Ekle Belirli bir Girdi yazmak istiyorsanız Örneğin sadece postlar gibi.
+     ->id(1) //Sadece ilgili yazı için yapılan hareketleri görmek için post id yi girin.
+     ->token('delete') //Yalnızca Ekleme gibi Belirli bir giriş belirtmek istiyorsanız doldurun..
+     ->get(); //Çağırın.
 ```
 
-### Development
-Want to contribute? Great! Just fork, clone, and start working, submit a pull request when you are ready.
-Or You can join our team at [codelab7](https://codelab7.com)
-
-### Todo(s)
-
- - Advance testing
- - Add other important fields
-
-License
-----
-GPL 3.0
-
-**Free Software, Hell Yeah!**
